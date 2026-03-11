@@ -49,9 +49,9 @@
     "categorycount": {
       "type": "integer"
     },
-    "headerbrandbar": {
+    "brandbar": {
       "type": "component",
-      "component": "header-brand-bar.header-brand-bar",
+      "component": "brandbar.brand-bar",
       "repeatable": true
     }
   }

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_brandbar_brand_bars",
+  "info": {
+    "displayName": "Brand Bar"
+  },
+  "options": {},
+  "attributes": {
+    "displayname": {
+      "type": "string"
+    },
+    "brandurl": {
+      "type": "string"
+    },
+    "brandcolor": {
+      "type": "string"
+    },
+    "order": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

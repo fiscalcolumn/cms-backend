@@ -1,5 +1,18 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface BrandbarBrandBar extends Struct.ComponentSchema {
+  collectionName: 'components_brandbar_brand_bars';
+  info: {
+    displayName: 'Brand Bar';
+  };
+  attributes: {
+    brandcolor: Schema.Attribute.String;
+    brandurl: Schema.Attribute.String;
+    displayname: Schema.Attribute.String;
+    order: Schema.Attribute.String;
+  };
+}
+
 export interface CalculatorFaq extends Struct.ComponentSchema {
   collectionName: 'components_calculator_faqs';
   info: {
@@ -10,19 +23,6 @@ export interface CalculatorFaq extends Struct.ComponentSchema {
   attributes: {
     answer: Schema.Attribute.Text & Schema.Attribute.Required;
     question: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
-export interface HeaderBrandBarHeaderBrandBar extends Struct.ComponentSchema {
-  collectionName: 'components_header_brand_bar_header_brand_bars';
-  info: {
-    displayName: 'HeaderBrandBar';
-  };
-  attributes: {
-    ColorCode: Schema.Attribute.String;
-    Name: Schema.Attribute.String;
-    Order: Schema.Attribute.Integer;
-    URL: Schema.Attribute.String;
   };
 }
 
@@ -108,8 +108,8 @@ export interface LayoutSocialLink extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'brandbar.brand-bar': BrandbarBrandBar;
       'calculator.faq': CalculatorFaq;
-      'header-brand-bar.header-brand-bar': HeaderBrandBarHeaderBrandBar;
       'jeweller.metal-url': JewellerMetalUrl;
       'layout.app-download': LayoutAppDownload;
       'layout.contact-info': LayoutContactInfo;
