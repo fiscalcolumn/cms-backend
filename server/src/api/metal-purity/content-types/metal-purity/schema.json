@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "metal_purities",
+  "info": {
+    "singularName": "metal-purity",
+    "pluralName": "metal-purities",
+    "displayName": "MetalPurity"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metalpurity": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "puritydescription": {
+      "type": "string"
+    }
+  }
+}

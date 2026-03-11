@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "homepage_sections",
+  "info": {
+    "singularName": "homepage-section",
+    "pluralName": "homepage-sections",
+    "displayName": "Homepage Section",
+    "description": "Dynamic sections for the homepage with featured items and category reference"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "description": "Category this section represents (for filtering articles)"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "view all",
+      "required": false
+    },
+    "order": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "homepagesectionstyle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::home-page-section-style.home-page-section-style"
+    }
+  }
+}

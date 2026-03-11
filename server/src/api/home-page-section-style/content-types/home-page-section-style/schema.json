@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_page_section_styles",
+  "info": {
+    "singularName": "home-page-section-style",
+    "pluralName": "home-page-section-styles",
+    "displayName": "HomePageSectionStyle"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sectionstyle": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "itemtoshow": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Build output
+server/dist/
+server/build/
+server/.cache/
+
+# Strapi specifics
+server/.tmp/
+server/.strapi/
+server/.strapi-updater.json
+server/public/uploads/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo

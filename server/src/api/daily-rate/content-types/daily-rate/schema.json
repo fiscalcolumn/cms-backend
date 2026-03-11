@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "daily_rates",
+  "info": {
+    "singularName": "daily-rate",
+    "pluralName": "daily-rates",
+    "displayName": "Daily Rate",
+    "description": "Daily rate data for metals in specific cities"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "rate": {
+      "type": "decimal",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "metal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::metal.metal"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::city.city"
+    },
+    "unitmeasure": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::unit-measure.unit-measure"
+    },
+    "metalpurity": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::metal-purity.metal-purity"
+    }
+  }
+}

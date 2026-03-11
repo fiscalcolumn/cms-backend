@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Article",
+    "description": "Articles/Posts that can be organized by category and displayed in sections"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "h2tag": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "default": "admin",
+      "required": true
+    },
+    "publishedDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "lastupdateddate": {
+      "type": "datetime"
+    },
+    "excerpt": {
+      "type": "text",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "views": {
+      "type": "integer",
+      "required": false,
+      "default": 125
+    },
+    "minutesToread": {
+      "type": "integer",
+      "default": 3
+    },
+    "content": {
+      "type": "richtext",
+      "required": false
+    },
+    "premium": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "articles"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "articles"
+    },
+    "articlecontenttype": {
+      "type": "enumeration",
+      "enum": ["standard", "featured", "premium"],
+      "default": "standard"
+    }
+  }
+}

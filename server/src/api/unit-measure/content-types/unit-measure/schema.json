@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "unit_measures",
+  "info": {
+    "singularName": "unit-measure",
+    "pluralName": "unit-measures",
+    "displayName": "Unit Measure"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "unitofmeasure": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "uomdescription": {
+      "type": "string"
+    }
+  }
+}
