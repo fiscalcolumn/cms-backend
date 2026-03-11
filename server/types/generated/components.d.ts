@@ -47,7 +47,6 @@ export interface LayoutAppDownload extends Struct.ComponentSchema {
     icon: 'download';
   };
   attributes: {
-    badgeImage: Schema.Attribute.Media<'images'>;
     platform: Schema.Attribute.Enumeration<['google-play', 'app-store']> &
       Schema.Attribute.Required;
     url: Schema.Attribute.String & Schema.Attribute.Required;

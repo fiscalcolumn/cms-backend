@@ -855,7 +855,6 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   };
   attributes: {
     appDownloads: Schema.Attribute.Component<'layout.app-download', true>;
-    bottomLinks: Schema.Attribute.Component<'layout.link', true>;
     contactInfo: Schema.Attribute.Component<'layout.contact-info', false>;
     copyrightText: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -874,8 +873,6 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     quickLinksColumn1: Schema.Attribute.Component<'layout.link', true>;
     quickLinksColumn2: Schema.Attribute.Component<'layout.link', true>;
-    quickLinksTitle: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Quick Links'>;
     socialLinks: Schema.Attribute.Component<'layout.social-link', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

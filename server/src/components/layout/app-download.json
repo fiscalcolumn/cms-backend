@@ -9,19 +9,15 @@
   "attributes": {
     "platform": {
       "type": "enumeration",
-      "enum": ["google-play", "app-store"],
-      "required": true
+      "required": true,
+      "enum": [
+        "google-play",
+        "app-store"
+      ]
     },
     "url": {
       "type": "string",
       "required": true
-    },
-    "badgeImage": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"]
     }
   }
 }
-
