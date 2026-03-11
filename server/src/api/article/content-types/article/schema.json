@@ -21,13 +21,14 @@
       "targetField": "title",
       "required": true
     },
-    "h2tag": {
+    "subtitle": {
       "type": "string"
     },
     "author": {
-      "type": "string",
-      "default": "admin",
-      "required": true
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author",
+      "inversedBy": "articles"
     },
     "publishedDate": {
       "type": "datetime",
@@ -37,34 +38,39 @@
       "type": "datetime"
     },
     "excerpt": {
-      "type": "text",
-      "required": false
+      "type": "text"
     },
     "image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "views": {
       "type": "integer",
-      "required": false,
-      "default": 125
+      "default": 0
     },
     "minutesToread": {
       "type": "integer",
       "default": 3
     },
     "content": {
-      "type": "richtext",
-      "required": false
+      "type": "richtext"
     },
     "premium": {
       "type": "boolean",
-      "required": false,
       "default": false
+    },
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 70
+    },
+    "metaDescription": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "canonicalUrl": {
+      "type": "string"
     },
     "category": {
       "type": "relation",
@@ -77,6 +83,17 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "inversedBy": "articles"
+    },
+    "stocks": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stock.stock",
+      "inversedBy": "articles"
+    },
+    "relatedArticles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article"
     },
     "articlecontenttype": {
       "type": "enumeration",

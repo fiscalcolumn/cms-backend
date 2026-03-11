@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "advertisements",
+  "info": {
+    "singularName": "advertisement",
+    "pluralName": "advertisements",
+    "displayName": "Advertisement",
+    "description": "Display ads and brand partnerships managed from CMS"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": ["header", "sidebar", "in-article", "footer", "between-posts"],
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["display", "sponsored", "brand-partnership"],
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "linkUrl": {
+      "type": "string"
+    },
+    "altText": {
+      "type": "string"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "endDate": {
+      "type": "date"
+    }
+  }
+}

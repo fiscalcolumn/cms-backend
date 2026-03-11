@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stocks",
+  "info": {
+    "singularName": "stock",
+    "pluralName": "stocks",
+    "displayName": "Stock",
+    "description": "Company/stock listings for tagging articles about specific stocks or mutual funds"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "exchange": {
+      "type": "enumeration",
+      "enum": ["NSE", "BSE", "NASDAQ", "NYSE"]
+    },
+    "sector": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article",
+      "mappedBy": "stocks"
+    }
+  }
+}

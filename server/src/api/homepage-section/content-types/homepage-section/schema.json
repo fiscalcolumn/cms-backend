@@ -15,13 +15,11 @@
     "category": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::category.category",
-      "description": "Category this section represents (for filtering articles)"
+      "target": "api::category.category"
     },
     "buttonText": {
       "type": "string",
-      "default": "view all",
-      "required": false
+      "default": "view all"
     },
     "order": {
       "type": "integer",
@@ -34,10 +32,17 @@
       "required": true,
       "default": true
     },
-    "homepagesectionstyle": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::home-page-section-style.home-page-section-style"
+    "sectionStyle": {
+      "type": "enumeration",
+      "enum": ["news-grid", "article-list", "calculator-grid", "featured-banner"],
+      "required": true,
+      "default": "article-list"
+    },
+    "itemsToShow": {
+      "type": "integer",
+      "default": 6,
+      "min": 1,
+      "max": 20
     }
   }
 }

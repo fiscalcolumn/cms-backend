@@ -430,6 +430,51 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAdvertisementAdvertisement
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'advertisements';
+  info: {
+    description: 'Display ads and brand partnerships managed from CMS';
+    displayName: 'Advertisement';
+    pluralName: 'advertisements';
+    singularName: 'advertisement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    altText: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endDate: Schema.Attribute.Date;
+    image: Schema.Attribute.Media<'images'>;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    linkUrl: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::advertisement.advertisement'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    position: Schema.Attribute.Enumeration<
+      ['header', 'sidebar', 'in-article', 'footer', 'between-posts']
+    > &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date;
+    type: Schema.Attribute.Enumeration<
+      ['display', 'sponsored', 'brand-partnership']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
 
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
@@ -447,16 +492,14 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       ['standard', 'featured', 'premium']
     > &
       Schema.Attribute.DefaultTo<'standard'>;
-    author: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'admin'>;
+    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
+    canonicalUrl: Schema.Attribute.String;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     content: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     excerpt: Schema.Attribute.Text;
-    h2tag: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'>;
     lastupdateddate: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -465,17 +508,67 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'api::article.article'
     > &
       Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 70;
+      }>;
     minutesToread: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<3>;
     premium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     publishedDate: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    relatedArticles: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::article.article'
+    >;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    stocks: Schema.Attribute.Relation<'manyToMany', 'api::stock.stock'>;
+    subtitle: Schema.Attribute.String;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    views: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<125>;
+    views: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+  };
+}
+
+export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
+  collectionName: 'authors';
+  info: {
+    description: 'Content authors and contributors';
+    displayName: 'Author';
+    pluralName: 'authors';
+    singularName: 'author';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    bio: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    designation: Schema.Attribute.String;
+    linkedin: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::author.author'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    photo: Schema.Attribute.Media<'images'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    twitter: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -570,7 +663,6 @@ export interface ApiCalculatorCalculator extends Struct.CollectionTypeSchema {
     views: Schema.Attribute.BigInteger & Schema.Attribute.DefaultTo<'5'>;
   };
 }
-
 
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
@@ -787,6 +879,64 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiGlossaryGlossary extends Struct.CollectionTypeSchema {
+  collectionName: 'glossaries';
+  info: {
+    description: 'Financial term definitions \u2014 What is SIP, CAGR, P/E ratio, etc.';
+    displayName: 'Glossary';
+    pluralName: 'glossaries';
+    singularName: 'glossary';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['investing', 'trading', 'banking', 'insurance', 'taxation', 'general']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'general'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    definition: Schema.Attribute.RichText & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::glossary.glossary'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 70;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    relatedArticles: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::article.article'
+    >;
+    relatedTerms: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::glossary.glossary'
+    >;
+    shortDefinition: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    slug: Schema.Attribute.UID<'term'> & Schema.Attribute.Required;
+    term: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
   collectionName: 'headers';
   info: {
@@ -830,38 +980,6 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiHomePageSectionStyleHomePageSectionStyle
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'home_page_section_styles';
-  info: {
-    displayName: 'HomePageSectionStyle';
-    pluralName: 'home-page-section-styles';
-    singularName: 'home-page-section-style';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    itemtoshow: Schema.Attribute.Integer;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::home-page-section-style.home-page-section-style'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    sectionstyle: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiHomepageSectionHomepageSection
   extends Struct.CollectionTypeSchema {
   collectionName: 'homepage_sections';
@@ -884,10 +1002,15 @@ export interface ApiHomepageSectionHomepageSection
     enabled: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
-    homepagesectionstyle: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::home-page-section-style.home-page-section-style'
-    >;
+    itemsToShow: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<6>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -904,6 +1027,11 @@ export interface ApiHomepageSectionHomepageSection
       > &
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
+    sectionStyle: Schema.Attribute.Enumeration<
+      ['news-grid', 'article-list', 'calculator-grid', 'featured-banner']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'article-list'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1080,6 +1208,40 @@ export interface ApiStaticPageStaticPage extends Struct.CollectionTypeSchema {
     showInFooter: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStockStock extends Struct.CollectionTypeSchema {
+  collectionName: 'stocks';
+  info: {
+    description: 'Company/stock listings for tagging articles about specific stocks or mutual funds';
+    displayName: 'Stock';
+    pluralName: 'stocks';
+    singularName: 'stock';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    articles: Schema.Attribute.Relation<'manyToMany', 'api::article.article'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    exchange: Schema.Attribute.Enumeration<['NSE', 'BSE', 'NASDAQ', 'NYSE']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::stock.stock'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    sector: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    ticker: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1699,7 +1861,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::advertisement.advertisement': ApiAdvertisementAdvertisement;
       'api::article.article': ApiArticleArticle;
+      'api::author.author': ApiAuthorAuthor;
       'api::calculator-category-type.calculator-category-type': ApiCalculatorCategoryTypeCalculatorCategoryType;
       'api::calculator.calculator': ApiCalculatorCalculator;
       'api::category.category': ApiCategoryCategory;
@@ -1707,14 +1871,15 @@ declare module '@strapi/strapi' {
       'api::country.country': ApiCountryCountry;
       'api::daily-rate.daily-rate': ApiDailyRateDailyRate;
       'api::footer.footer': ApiFooterFooter;
+      'api::glossary.glossary': ApiGlossaryGlossary;
       'api::header.header': ApiHeaderHeader;
-      'api::home-page-section-style.home-page-section-style': ApiHomePageSectionStyleHomePageSectionStyle;
       'api::homepage-section.homepage-section': ApiHomepageSectionHomepageSection;
       'api::metal-purity.metal-purity': ApiMetalPurityMetalPurity;
       'api::metal.metal': ApiMetalMetal;
       'api::popular-tag.popular-tag': ApiPopularTagPopularTag;
       'api::state.state': ApiStateState;
       'api::static-page.static-page': ApiStaticPageStaticPage;
+      'api::stock.stock': ApiStockStock;
       'api::tag-group.tag-group': ApiTagGroupTagGroup;
       'api::tag.tag': ApiTagTag;
       'api::unit-measure.unit-measure': ApiUnitMeasureUnitMeasure;
