@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_jeweller_metal_urls",
+  "info": {
+    "displayName": "Metal URL",
+    "icon": "link",
+    "description": "Rate/buy page URL for a specific metal"
+  },
+  "options": {},
+  "attributes": {
+    "metal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::metal.metal"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

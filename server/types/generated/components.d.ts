@@ -13,6 +13,19 @@ export interface CalculatorFaq extends Struct.ComponentSchema {
   };
 }
 
+export interface JewellerMetalUrl extends Struct.ComponentSchema {
+  collectionName: 'components_jeweller_metal_urls';
+  info: {
+    description: 'Rate/buy page URL for a specific metal';
+    displayName: 'Metal URL';
+    icon: 'link';
+  };
+  attributes: {
+    metal: Schema.Attribute.Relation<'oneToOne', 'api::metal.metal'>;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface LayoutAppDownload extends Struct.ComponentSchema {
   collectionName: 'components_layout_app_downloads';
   info: {
@@ -83,6 +96,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'calculator.faq': CalculatorFaq;
+      'jeweller.metal-url': JewellerMetalUrl;
       'layout.app-download': LayoutAppDownload;
       'layout.contact-info': LayoutContactInfo;
       'layout.link': LayoutLink;

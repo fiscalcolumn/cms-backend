@@ -26,6 +26,8 @@ const PUBLIC_ACTIONS = [
   'api::calculator.calculator.findOne',
   'api::daily-rate.daily-rate.find',
   'api::daily-rate.daily-rate.findOne',
+  'api::jeweller.jeweller.find',
+  'api::jeweller.jeweller.findOne',
   'api::static-page.static-page.find',
   'api::static-page.static-page.findOne',
   'api::advertisement.advertisement.find',

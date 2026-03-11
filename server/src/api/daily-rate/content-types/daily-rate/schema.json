@@ -5,40 +5,52 @@
     "singularName": "daily-rate",
     "pluralName": "daily-rates",
     "displayName": "Daily Rate",
-    "description": "Daily rate data for metals in specific cities"
+    "description": "Daily buying/selling rates for precious metals by city or state"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "rate": {
-      "type": "decimal",
-      "required": true
-    },
     "date": {
       "type": "date",
       "required": true
+    },
+    "buyingRate": {
+      "type": "decimal",
+      "required": true
+    },
+    "sellingRate": {
+      "type": "decimal",
+      "required": true
+    },
+    "source": {
+      "type": "string"
     },
     "metal": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::metal.metal"
     },
-    "city": {
+    "metalpurity": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::city.city"
+      "target": "api::metal-purity.metal-purity"
     },
     "unitmeasure": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::unit-measure.unit-measure"
     },
-    "metalpurity": {
+    "city": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::metal-purity.metal-purity"
+      "target": "api::city.city"
+    },
+    "state": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::state.state"
     }
   }
 }

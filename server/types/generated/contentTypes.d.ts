@@ -747,6 +747,7 @@ export interface ApiCityCity extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     state: Schema.Attribute.Relation<'manyToOne', 'api::state.state'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -801,7 +802,7 @@ export interface ApiCountryCountry extends Struct.CollectionTypeSchema {
 export interface ApiDailyRateDailyRate extends Struct.CollectionTypeSchema {
   collectionName: 'daily_rates';
   info: {
-    description: 'Daily rate data for metals in specific cities';
+    description: 'Daily buying/selling rates for precious metals by city or state';
     displayName: 'Daily Rate';
     pluralName: 'daily-rates';
     singularName: 'daily-rate';
@@ -810,6 +811,7 @@ export interface ApiDailyRateDailyRate extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    buyingRate: Schema.Attribute.Decimal & Schema.Attribute.Required;
     city: Schema.Attribute.Relation<'oneToOne', 'api::city.city'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -827,7 +829,9 @@ export interface ApiDailyRateDailyRate extends Struct.CollectionTypeSchema {
       'api::metal-purity.metal-purity'
     >;
     publishedAt: Schema.Attribute.DateTime;
-    rate: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    sellingRate: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    source: Schema.Attribute.String;
+    state: Schema.Attribute.Relation<'oneToOne', 'api::state.state'>;
     unitmeasure: Schema.Attribute.Relation<
       'oneToOne',
       'api::unit-measure.unit-measure'
@@ -1038,6 +1042,49 @@ export interface ApiHomepageSectionHomepageSection
   };
 }
 
+export interface ApiJewellerJeweller extends Struct.CollectionTypeSchema {
+  collectionName: 'jewellers';
+  info: {
+    description: 'National and local jewellers shown alongside precious metal rate pages';
+    displayName: 'Jeweller';
+    pluralName: 'jewellers';
+    singularName: 'jeweller';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cities: Schema.Attribute.Relation<'manyToMany', 'api::city.city'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::jeweller.jeweller'
+    > &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images'>;
+    metalUrls: Schema.Attribute.Component<'jeweller.metal-url', true>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    scope: Schema.Attribute.Enumeration<['national', 'state', 'city']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'national'>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    states: Schema.Attribute.Relation<'manyToMany', 'api::state.state'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    website: Schema.Attribute.String;
+  };
+}
+
 export interface ApiMetalPurityMetalPurity extends Struct.CollectionTypeSchema {
   collectionName: 'metal_purities';
   info: {
@@ -1153,6 +1200,7 @@ export interface ApiStateState extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1874,6 +1922,7 @@ declare module '@strapi/strapi' {
       'api::glossary.glossary': ApiGlossaryGlossary;
       'api::header.header': ApiHeaderHeader;
       'api::homepage-section.homepage-section': ApiHomepageSectionHomepageSection;
+      'api::jeweller.jeweller': ApiJewellerJeweller;
       'api::metal-purity.metal-purity': ApiMetalPurityMetalPurity;
       'api::metal.metal': ApiMetalMetal;
       'api::popular-tag.popular-tag': ApiPopularTagPopularTag;
