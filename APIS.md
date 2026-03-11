@@ -337,6 +337,14 @@ GET /jewellers/for-rate-page?metal=silver&state=maharashtra&city=mumbai
 
 ```
 GET /header?populate=logo,navigationCategories,header_article
+
+# For header config (brand bar pills + category count):
+GET /header?populate=logo,headerbrandbar
+
+# Response includes:
+# - logoText, logo
+# - categorycount  → max nav categories before "More" dropdown
+# - headerbrandbar → array of { Name, URL, ColorCode, Order }
 ```
 
 ---
@@ -361,8 +369,10 @@ GET /footer?populate=logo,socialLinks,contactInfo,quickLinksColumn1,quickLinksCo
 
 ```
 # All enabled sections in order
-GET /homepage-sections?filters[enabled][$eq]=true
-  &sort=order:asc&populate=category
+GET /homepage-sections?populate[category]=true&filters[enabled][$eq]=true&sort=order:asc
+
+# Note: sectionStyle and itemsToShow are direct fields — they are NOT relations
+# and must NOT be passed to populate. Doing so returns a 400 error.
 ```
 
 ---

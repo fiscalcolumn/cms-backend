@@ -343,6 +343,16 @@ Site-wide navigation header.
 | `navigationCategories` | relation → Category (oneToMany) | nav menu categories |
 | `CategoryNotFound` | media | fallback image |
 | `header_article` | relation → Article (oneToOne) | featured article in header |
+| `categorycount` | integer | max categories shown in nav before "More" dropdown; defaults to 6 |
+| `headerbrandbar` | component (HeaderBrandBar, repeatable) | CTA pills shown in the brand bar |
+
+#### HeaderBrandBar component
+| Field | Type | Notes |
+|---|---|---|
+| `Name` | string | button label, e.g. "Gold Rates" |
+| `URL` | string | link destination, e.g. "/gold-rate-today" |
+| `ColorCode` | string | CSS color for button background, e.g. "#c8922a" |
+| `Order` | integer | display order (ascending) |
 
 ---
 

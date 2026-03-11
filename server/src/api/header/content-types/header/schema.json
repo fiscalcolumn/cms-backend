@@ -45,6 +45,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::article.article"
+    },
+    "categorycount": {
+      "type": "integer"
+    },
+    "headerbrandbar": {
+      "type": "component",
+      "component": "header-brand-bar.header-brand-bar",
+      "repeatable": true
     }
   }
 }

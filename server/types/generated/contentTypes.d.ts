@@ -953,6 +953,7 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    categorycount: Schema.Attribute.Integer;
     CategoryNotFound: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -962,6 +963,10 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
     header_article: Schema.Attribute.Relation<
       'oneToOne',
       'api::article.article'
+    >;
+    headerbrandbar: Schema.Attribute.Component<
+      'header-brand-bar.header-brand-bar',
+      true
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

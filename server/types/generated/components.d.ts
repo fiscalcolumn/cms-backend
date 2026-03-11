@@ -13,6 +13,19 @@ export interface CalculatorFaq extends Struct.ComponentSchema {
   };
 }
 
+export interface HeaderBrandBarHeaderBrandBar extends Struct.ComponentSchema {
+  collectionName: 'components_header_brand_bar_header_brand_bars';
+  info: {
+    displayName: 'HeaderBrandBar';
+  };
+  attributes: {
+    ColorCode: Schema.Attribute.String;
+    Name: Schema.Attribute.String;
+    Order: Schema.Attribute.Integer;
+    URL: Schema.Attribute.String;
+  };
+}
+
 export interface JewellerMetalUrl extends Struct.ComponentSchema {
   collectionName: 'components_jeweller_metal_urls';
   info: {
@@ -96,6 +109,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'calculator.faq': CalculatorFaq;
+      'header-brand-bar.header-brand-bar': HeaderBrandBarHeaderBrandBar;
       'jeweller.metal-url': JewellerMetalUrl;
       'layout.app-download': LayoutAppDownload;
       'layout.contact-info': LayoutContactInfo;

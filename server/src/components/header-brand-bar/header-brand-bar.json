@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_header_brand_bar_header_brand_bars",
+  "info": {
+    "displayName": "HeaderBrandBar"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "URL": {
+      "type": "string"
+    },
+    "ColorCode": {
+      "type": "string"
+    },
+    "Order": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

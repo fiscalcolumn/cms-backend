@@ -1,61 +1,79 @@
-# 🚀 Getting started with Strapi
+# FiscalColumn — CMS Backend
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+Strapi v5 headless CMS powering the FiscalColumn finance platform.
 
-### `develop`
+## Setup
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
-
-```
-npm run develop
-# or
-yarn develop
+```bash
+npm install
 ```
 
-### `start`
+Copy the example env file and fill in your values:
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
-
-```
-npm run start
-# or
-yarn start
+```bash
+cp .env.example .env
 ```
 
-### `build`
+## Running
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+```bash
+# Development (auto-reload)
+npm run dev
 
-```
+# Production
+npm start
+
+# Build admin panel
 npm run build
-# or
-yarn build
 ```
 
-## ⚙️ Deployment
+Server starts on **http://localhost:1337**
+Admin panel: **http://localhost:1337/admin**
 
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+## Environment Variables
 
-```
-yarn strapi deploy
-```
+See `.env.example` for the full list. Key variables:
 
-## 📚 Learn more
+| Variable | Default | Description |
+|---|---|---|
+| `HOST` | `0.0.0.0` | Server host |
+| `PORT` | `1337` | Server port |
+| `DATABASE_CLIENT` | `sqlite` | `sqlite` or `postgres` |
+| `DATABASE_FILENAME` | `.tmp/data.db` | SQLite file path |
+| `DATABASE_URL` | — | PostgreSQL connection string (prod) |
+| `DATABASE_SSL` | `true` | Enable SSL for PostgreSQL |
+| `CORS_ORIGIN` | `http://localhost:3000` | Allowed frontend origin(s), comma-separated |
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+## Content Types
 
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+23 content types across 5 domains. See [`../TABLES.md`](../TABLES.md) for the full schema reference.
 
-## ✨ Community
+| Domain | Types |
+|---|---|
+| Content | Article, Author, Category, Tag, Tag Group, Popular Tag, Glossary, Static Page |
+| Finance | Calculator, Calculator Category Type, Stock, Daily Rate, Metal, Metal Purity, Unit Measure, Jeweller, Advertisement |
+| Geo | Country, State, City |
+| Layout | Header, Footer, Homepage Section |
 
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+## API
 
----
+Base URL: `http://localhost:1337/api`
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+All read endpoints are public (no authentication required). Write operations require a Bearer token.
+
+See [`../APIS.md`](../APIS.md) for the full API reference with example queries.
+
+## Custom Endpoints
+
+Beyond standard CRUD, three custom endpoints are implemented:
+
+| Method | Path | Description |
+|---|---|---|
+| `POST` | `/api/articles/:id/view` | Increment article view count |
+| `POST` | `/api/calculators/:id/view` | Increment calculator view count |
+| `GET` | `/api/jewellers/for-rate-page` | Jewellers filtered by metal + city/state scope |
+
+## Database
+
+- **Development**: SQLite at `.tmp/data.db`
+- **Production**: PostgreSQL via `DATABASE_URL`. Supports `DATABASE_URL` (connection string) or individual `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_NAME`, `DATABASE_USERNAME`, `DATABASE_PASSWORD` variables.
