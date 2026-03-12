@@ -36,7 +36,16 @@
       "relation": "oneToMany",
       "target": "api::tag.tag",
       "mappedBy": "tagGroup"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }
-
