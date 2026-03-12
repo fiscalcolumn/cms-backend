@@ -548,6 +548,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    admin: Schema.Attribute.Boolean;
     articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
     bio: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;

@@ -28,7 +28,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "designation": {
       "type": "string"
@@ -44,6 +46,9 @@
       "relation": "oneToMany",
       "target": "api::article.article",
       "mappedBy": "author"
+    },
+    "admin": {
+      "type": "boolean"
     }
   }
 }
