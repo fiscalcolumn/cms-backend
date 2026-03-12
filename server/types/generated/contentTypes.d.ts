@@ -963,6 +963,10 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
       'oneToOne',
       'api::article.article'
     >;
+    header_article_2: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::article.article'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

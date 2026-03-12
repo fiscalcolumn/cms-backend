@@ -46,6 +46,11 @@
       "relation": "oneToOne",
       "target": "api::article.article"
     },
+    "header_article_2": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
     "categorycount": {
       "type": "integer"
     },
