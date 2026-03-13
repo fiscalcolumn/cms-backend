@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscriptions",
+  "info": {
+    "singularName": "subscription",
+    "pluralName": "subscriptions",
+    "displayName": "Subscription",
+    "description": "Newsletter email subscriptions"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "subscribed": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "subscribedAt": {
+      "type": "datetime"
+    },
+    "source": {
+      "type": "string",
+      "description": "Page or section where the user subscribed"
+    },
+    "unsubscribedAt": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1300,6 +1300,44 @@ export interface ApiStockStock extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSubscriptionSubscription
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'subscriptions';
+  info: {
+    description: 'Newsletter email subscriptions';
+    displayName: 'Subscription';
+    pluralName: 'subscriptions';
+    singularName: 'subscription';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscription.subscription'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.String;
+    subscribed: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    subscribedAt: Schema.Attribute.DateTime;
+    unsubscribedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTagGroupTagGroup extends Struct.CollectionTypeSchema {
   collectionName: 'tag_groups';
   info: {
@@ -1934,6 +1972,7 @@ declare module '@strapi/strapi' {
       'api::state.state': ApiStateState;
       'api::static-page.static-page': ApiStaticPageStaticPage;
       'api::stock.stock': ApiStockStock;
+      'api::subscription.subscription': ApiSubscriptionSubscription;
       'api::tag-group.tag-group': ApiTagGroupTagGroup;
       'api::tag.tag': ApiTagTag;
       'api::unit-measure.unit-measure': ApiUnitMeasureUnitMeasure;
