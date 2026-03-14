@@ -31,6 +31,19 @@ const PUBLIC_ACTIONS = [
   'api::static-page.static-page.find',
   'api::static-page.static-page.findOne',
   'api::advertisement.advertisement.find',
+  'api::metal.metal.find',
+  'api::metal.metal.findOne',
+  'api::metal-purity.metal-purity.find',
+  'api::metal-purity.metal-purity.findOne',
+  'api::unit-measure.unit-measure.find',
+  'api::unit-measure.unit-measure.findOne',
+  'api::state.state.find',
+  'api::state.state.findOne',
+  'api::city.city.find',
+  'api::city.city.findOne',
+  'api::subscription.subscription.create',
+  'api::metal-tax.metal-tax.find',
+  'api::metal-tax.metal-tax.findOne',
 ];
 
 export default {

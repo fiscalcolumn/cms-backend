@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "metal_taxes",
+  "info": {
+    "singularName": "metal-tax",
+    "pluralName": "metal-taxes",
+    "displayName": "Metal Tax",
+    "description": "Taxes and duties applicable on precious metals in India"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "taxName": {
+      "type": "string",
+      "required": true
+    },
+    "metal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::metal.metal"
+    },
+    "governmentLevel": {
+      "type": "enumeration",
+      "enum": ["central", "state", "both"],
+      "required": true,
+      "default": "central"
+    },
+    "applicableOn": {
+      "type": "enumeration",
+      "enum": ["purchase", "import", "capital_gain", "sale", "making_charges", "other"],
+      "required": true,
+      "default": "purchase"
+    },
+    "taxValue": {
+      "type": "string",
+      "required": true
+    },
+    "info": {
+      "type": "text"
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "effectiveFrom": {
+      "type": "date"
+    }
+  }
+}

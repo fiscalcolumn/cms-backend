@@ -26,7 +26,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "website": {
       "type": "string"
@@ -38,9 +40,13 @@
     },
     "scope": {
       "type": "enumeration",
-      "enum": ["national", "state", "city"],
       "required": true,
-      "default": "national"
+      "default": "national",
+      "enum": [
+        "national",
+        "state",
+        "city"
+      ]
     },
     "states": {
       "type": "relation",
@@ -54,8 +60,11 @@
     },
     "isActive": {
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": true,
+      "default": true
+    },
+    "order": {
+      "type": "integer"
     }
   }
 }

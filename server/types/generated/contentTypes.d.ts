@@ -1076,6 +1076,7 @@ export interface ApiJewellerJeweller extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    order: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     scope: Schema.Attribute.Enumeration<['national', 'state', 'city']> &
       Schema.Attribute.Required &
@@ -1114,6 +1115,53 @@ export interface ApiMetalPurityMetalPurity extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     puritydescription: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMetalTaxMetalTax extends Struct.CollectionTypeSchema {
+  collectionName: 'metal_taxes';
+  info: {
+    description: 'Taxes and duties applicable on precious metals in India';
+    displayName: 'Metal Tax';
+    pluralName: 'metal-taxes';
+    singularName: 'metal-tax';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    applicableOn: Schema.Attribute.Enumeration<
+      ['purchase', 'import', 'capital_gain', 'sale', 'making_charges', 'other']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'purchase'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    displayOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    effectiveFrom: Schema.Attribute.Date;
+    governmentLevel: Schema.Attribute.Enumeration<
+      ['central', 'state', 'both']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'central'>;
+    info: Schema.Attribute.Text;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::metal-tax.metal-tax'
+    > &
+      Schema.Attribute.Private;
+    metal: Schema.Attribute.Relation<'manyToOne', 'api::metal.metal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    taxName: Schema.Attribute.String & Schema.Attribute.Required;
+    taxValue: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1967,6 +2015,7 @@ declare module '@strapi/strapi' {
       'api::homepage-section.homepage-section': ApiHomepageSectionHomepageSection;
       'api::jeweller.jeweller': ApiJewellerJeweller;
       'api::metal-purity.metal-purity': ApiMetalPurityMetalPurity;
+      'api::metal-tax.metal-tax': ApiMetalTaxMetalTax;
       'api::metal.metal': ApiMetalMetal;
       'api::popular-tag.popular-tag': ApiPopularTagPopularTag;
       'api::state.state': ApiStateState;
