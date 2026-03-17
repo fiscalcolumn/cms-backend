@@ -42,6 +42,8 @@ const PUBLIC_ACTIONS = [
   'api::city.city.find',
   'api::city.city.findOne',
   'api::subscription.subscription.create',
+  'api::subscription.subscription.find',
+  'api::subscription.subscription.update',
   'api::metal-tax.metal-tax.find',
   'api::metal-tax.metal-tax.findOne',
 ];
