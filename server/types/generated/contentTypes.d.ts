@@ -639,6 +639,7 @@ export interface ApiCalculatorCalculator extends Struct.CollectionTypeSchema {
     howToUse: Schema.Attribute.RichText;
     icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'fa-calculator'>;
     iconColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#14bdee'>;
+    isTrending: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
