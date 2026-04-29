@@ -1037,10 +1037,10 @@ export interface ApiHomepageSectionHomepageSection
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     sectionStyle: Schema.Attribute.Enumeration<
-      ['news-grid', 'article-list', 'calculator-grid', 'featured-banner']
+      ['lead-story', 'mosaic', 'scroll-row', 'digest']
     > &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'article-list'>;
+      Schema.Attribute.DefaultTo<'lead-story'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

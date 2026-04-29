@@ -34,9 +34,14 @@
     },
     "sectionStyle": {
       "type": "enumeration",
-      "enum": ["news-grid", "article-list", "calculator-grid", "featured-banner"],
       "required": true,
-      "default": "article-list"
+      "default": "lead-story",
+      "enum": [
+        "lead-story",
+        "mosaic",
+        "scroll-row",
+        "digest"
+      ]
     },
     "itemsToShow": {
       "type": "integer",
