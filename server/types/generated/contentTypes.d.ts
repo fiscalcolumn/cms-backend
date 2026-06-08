@@ -1037,7 +1037,14 @@ export interface ApiHomepageSectionHomepageSection
       Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     sectionStyle: Schema.Attribute.Enumeration<
-      ['lead-story', 'mosaic', 'scroll-row', 'digest']
+      [
+        'lead-story',
+        'mosaic',
+        'scroll-row',
+        'digest',
+        'editorial-hero',
+        'media-editorial-layout',
+      ]
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'lead-story'>;

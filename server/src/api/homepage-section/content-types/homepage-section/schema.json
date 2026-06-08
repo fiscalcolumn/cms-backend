@@ -40,7 +40,9 @@
         "lead-story",
         "mosaic",
         "scroll-row",
-        "digest"
+        "digest",
+        "editorial-hero",
+        "media-editorial-layout"
       ]
     },
     "itemsToShow": {
