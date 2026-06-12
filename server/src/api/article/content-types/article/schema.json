@@ -52,7 +52,7 @@
       "type": "integer",
       "default": 0
     },
-    "minutesToread": {
+    "minutesToRead": {
       "type": "integer",
       "default": 3
     },

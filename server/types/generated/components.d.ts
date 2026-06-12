@@ -8,7 +8,7 @@ export interface BrandbarBrandBar extends Struct.ComponentSchema {
   attributes: {
     brandcolor: Schema.Attribute.String;
     brandurl: Schema.Attribute.String;
-    displayname: Schema.Attribute.String;
+    displayName: Schema.Attribute.String;
     order: Schema.Attribute.String;
   };
 }

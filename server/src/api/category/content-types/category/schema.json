@@ -32,7 +32,7 @@
         "audios"
       ]
     },
-    "displayname": {
+    "displayName": {
       "type": "string",
       "required": true,
       "unique": true
@@ -57,12 +57,12 @@
       "target": "api::article.article",
       "mappedBy": "category"
     },
-    "relatedcategories": {
+    "relatedCategories": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::category.category"
     },
-    "relatedtaggroups": {
+    "relatedTagGroups": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag-group.tag-group"
@@ -73,17 +73,17 @@
       "target": "api::calculator.calculator",
       "mappedBy": "category"
     },
-    "toparticle": {
+    "topArticle": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::article.article"
     },
-    "populartags": {
+    "popularTags": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::tag.tag"
     },
-    "categorycontenttype": {
+    "contentType": {
       "type": "enumeration",
       "enum": ["articles", "calculators", "rates"],
       "required": true

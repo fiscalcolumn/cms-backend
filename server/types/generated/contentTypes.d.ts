@@ -516,7 +516,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 70;
       }>;
-    minutesToread: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<3>;
+    minutesToRead: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<3>;
     premium: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     publishedDate: Schema.Attribute.DateTime & Schema.Attribute.Required;
@@ -683,18 +683,18 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::calculator.calculator'
     >;
-    categorycontenttype: Schema.Attribute.Enumeration<
-      ['articles', 'calculators', 'rates']
-    > &
-      Schema.Attribute.Required;
     categoryImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+    contentType: Schema.Attribute.Enumeration<
+      ['articles', 'calculators', 'rates']
+    > &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    displayname: Schema.Attribute.String &
+    displayName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     enabled: Schema.Attribute.Boolean &
@@ -710,18 +710,18 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    populartags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
+    popularTags: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'>;
     publishedAt: Schema.Attribute.DateTime;
-    relatedcategories: Schema.Attribute.Relation<
+    relatedCategories: Schema.Attribute.Relation<
       'oneToMany',
       'api::category.category'
     >;
-    relatedtaggroups: Schema.Attribute.Relation<
+    relatedTagGroups: Schema.Attribute.Relation<
       'oneToMany',
       'api::tag-group.tag-group'
     >;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    toparticle: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
+    topArticle: Schema.Attribute.Relation<'oneToOne', 'api::article.article'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
