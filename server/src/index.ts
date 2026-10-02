@@ -24,7 +24,6 @@ const PUBLIC_ACTIONS = [
   'api::glossary.glossary.findOne',
   'api::calculator.calculator.find',
   'api::calculator.calculator.findOne',
-  'api::calculator.calculator.update',
   'api::calculator-category-type.calculator-category-type.find',
   'api::calculator-category-type.calculator-category-type.findOne',
   'api::daily-rate.daily-rate.find',
@@ -49,6 +48,12 @@ const PUBLIC_ACTIONS = [
   'api::subscription.subscription.update',
   'api::metal-tax.metal-tax.find',
   'api::metal-tax.metal-tax.findOne',
+];
+
+// Rows in up_permissions grant access. There is no enabled flag.
+// Delete these if a previous boot created them for the public role.
+const REVOKED_PUBLIC_ACTIONS = [
+  'api::calculator.calculator.update',
 ];
 
 export default {
@@ -83,6 +88,13 @@ export default {
             .create({ data: { action, role: publicRole.id, enabled: true } });
         }
       }
+
+      await strapi.db.query('plugin::users-permissions.permission').deleteMany({
+        where: {
+          action: { $in: REVOKED_PUBLIC_ACTIONS },
+          role: publicRole.id,
+        },
+      });
     } catch (error) {
       console.error('Error setting up public permissions:', error);
     }
