@@ -11,7 +11,12 @@ export default {
       config: {
         auth: false,
         policies: [],
-        middlewares: [],
+        middlewares: [
+          {
+            name: 'global::write-rate-limit',
+            config: { name: 'content-views', max: 60, intervalMs: 60 * 1000 },
+          },
+        ],
       },
     },
   ],
