@@ -44,8 +44,6 @@ const PUBLIC_ACTIONS = [
   'api::city.city.find',
   'api::city.city.findOne',
   'api::subscription.subscription.create',
-  'api::subscription.subscription.find',
-  'api::subscription.subscription.update',
   'api::metal-tax.metal-tax.find',
   'api::metal-tax.metal-tax.findOne',
 ];
@@ -54,6 +52,9 @@ const PUBLIC_ACTIONS = [
 // Delete these if a previous boot created them for the public role.
 const REVOKED_PUBLIC_ACTIONS = [
   'api::calculator.calculator.update',
+  'api::subscription.subscription.find',
+  'api::subscription.subscription.findOne',
+  'api::subscription.subscription.update',
 ];
 
 export default {
@@ -89,12 +90,18 @@ export default {
         }
       }
 
-      await strapi.db.query('plugin::users-permissions.permission').deleteMany({
-        where: {
-          action: { $in: REVOKED_PUBLIC_ACTIONS },
-          role: publicRole.id,
-        },
+      const staleGrants = await strapi.db.query('plugin::users-permissions.permission').findMany({
+        where: { action: { $in: REVOKED_PUBLIC_ACTIONS } },
+        populate: ['role'],
       });
+
+      for (const permission of staleGrants) {
+        const roleId = permission.role?.id ?? permission.role;
+        if (roleId !== publicRole.id) continue;
+        await strapi.db.query('plugin::users-permissions.permission').delete({
+          where: { id: permission.id },
+        });
+      }
     } catch (error) {
       console.error('Error setting up public permissions:', error);
     }
